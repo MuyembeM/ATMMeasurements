@@ -11,6 +11,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeasurementsDLL", "Measurem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementsUI", "MeasurementsUI\MeasurementsUI.csproj", "{A166D5D6-3C46-4804-98DD-EE54C2DDBA8D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C307B1FE-4263-4109-AFD7-7EF57B274972}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\MeasurementsDB.bak = ..\..\..\Downloads\MeasurementsDB.bak
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
