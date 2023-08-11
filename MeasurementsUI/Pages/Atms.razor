@@ -1,0 +1,70 @@
+﻿@page "/"
+@inherits AtmsBase
+
+@if (Atms == null)
+{
+    <h4>Loading ATMs...</h4>
+}
+else
+{
+    <h3 class="mb-5">ATMS</h3>
+
+    <div class="mt-2">
+        <a href="/newatm" class="btn btn-sm btn-success">
+            New ATM
+        </a>
+    </div>
+
+    var atmCount = Atms.Count();
+
+    if (atmCount > 0)
+    {
+        <div class="row mt-3">
+            <div class="col-md-1 mb-2">
+                Id
+            </div>
+            <div class="col-md-4 mb-2">
+                Description
+            </div>
+            <div class="col-md-1 mb-2">
+                Length
+            </div>
+            <div class="col-md-1 mb-2">
+                Height
+            </div>
+            <div class="col-md-1 mb-2">
+                Width
+            </div>
+            <div class="col-md-4 mb-2">
+                
+            </div>
+        </div>
+
+        @foreach (var atm in Atms)
+        {
+            <div class="row mt-3">
+                <div class="col-md-1 mb-2">
+                    @atm.Id
+                </div>
+                <div class="col-md-4 mb-2">
+                    @atm.Description
+                </div>
+                <div class="col-md-1 mb-2">
+                    @atm.Length
+                </div>
+                <div class="col-md-1 mb-2">
+                    @atm.Height
+                </div>
+                <div class="col-md-1 mb-2">
+                    @atm.Width
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a class="btn btn-sm btn-secondary" href="/atmdetails/@atm.Id">View</a>
+                    <a class="btn btn-sm btn-primary" href="/editatm/@atm.Id">Edit</a>
+                    <button @onclick ="(() => DeleteAtm_Click(atm.Id))"
+                        class="btn btn-sm btn-danger">Delete</button>
+                </div>
+            </div>
+        }
+    }
+}

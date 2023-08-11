@@ -1,0 +1,60 @@
+﻿@page "/NewAtm"
+@inherits AtmDetailsBase
+
+@if (Atm == null && ErrorMessage == null)
+{
+    <h4>Loading...</h4>
+}
+else if (ErrorMessage != null)
+{
+    <h4 class="text-danger">@ErrorMessage</h4>
+}
+else if (Atm.Id == 0){
+    <h4 class="mb-5">New ATM</h4>
+    <EditForm Model="@Atm" OnValidSubmit="@SaveATM">
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col-md-2">
+                <p>Description</p>
+            </div>
+            <div class="col-md-10">
+                <input type="text" @bind="Atm.Description" />
+                <ValidationMessage For="() => Atm.Description" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Height</p>
+            </div>
+            <div class="col-md-10">
+                <input type="number" @bind="Atm.Height" />
+                <ValidationMessage For="() => Atm.Height" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Length</p>
+            </div>
+            <div class="col-md-10">
+                <input type="number" @bind="Atm.Length" />
+                <ValidationMessage For="() => Atm.Length" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Width</p>
+            </div>
+            <div class="col-md-10">
+                <input type="number" @bind="Atm.Width" />
+                <ValidationMessage For="() => Atm.Width" />
+            </div>
+        </div>
+        <div class="mt-2">
+            <button type="submit"
+                    class="btn btn-sm btn-primary">
+                Save
+            </button>
+            <a class="btn btn-sm btn-secondary" href="/">Cancel</a>
+        </div>
+    </EditForm>
+}

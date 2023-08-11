@@ -1,0 +1,60 @@
+﻿@page "/AtmDetails/{Id:int}"
+@inherits AtmDetailsBase
+
+@if (Atm == null && ErrorMessage == null)
+{
+    <h4>Loading ATM details</h4>
+}
+else if (ErrorMessage != null)
+{
+    <h4 class="text-danger">@ErrorMessage</h4>
+}else{
+    <h4 class="mb-5">ATM Details</h4>
+    <div class="row">
+        <div class="col-md-2">
+            <p>ID</p>
+        </div>
+        <div class="col-md-10">
+            <p>@Atm.Id</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Description</p>
+        </div>
+        <div class="col-md-10">
+            <p>@Atm.Description</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Height</p>
+        </div>
+        <div class="col-md-10">
+            <p>@Atm.Height</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Length</p>
+        </div>
+        <div class="col-md-10">
+            <p>@Atm.Length</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Width</p>
+        </div>
+        <div class="col-md-10">
+            <p>@Atm.Width</p>
+        </div>
+    </div>
+    <div class="mt-2">
+        <button @onclick="(() => GetAtmHash_Click())"
+                class="btn btn-sm btn-primary">
+            Get ATM Hash
+        </button>
+        <a class="btn btn-sm btn-secondary" href="/">Cancel</a>
+    </div>
+}
