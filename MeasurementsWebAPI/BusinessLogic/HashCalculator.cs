@@ -15,7 +15,7 @@ namespace MeasurementsWebAPI.BusinessLogic
         }
 
         [DllImport("MeasurementsDLL", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool CalculateAtmHash(in char startChar, int length, out char hashChar, out int hashLength);
+        public static extern bool CalculateAtmHash(in byte startChar, int length, out byte hashChar, out int hashLength);
             
         public string GetHash(string description)
         {
@@ -24,14 +24,18 @@ namespace MeasurementsWebAPI.BusinessLogic
             // Declare 100-byte array
             byte[] hash = new byte[100];
 
-            var startChar = (char)byteArray[0];
-            var length = byteArray.Length;
-            var hashChar = (char)hash[0];
             var hashLength = 0;
 
-            //CalculateAtmHash(in startChar, length, out hashChar, out hashLength);
+            CalculateAtmHash(in byteArray[0], byteArray.Length, out hash[0], out hashLength);
+            
+            // Copy populated elements in hash to new byte array
+            var filledArray = new byte[hashLength];
+            Array.Copy(hash, 0, filledArray,0, hashLength);
 
-            return hash.ToString();
+            // Convert byte array back to string using UTF-8 encoding
+            var utfString = Encoding.UTF8.GetString(filledArray);
+            return utfString;
+            
         }
         
         public void Dispose()

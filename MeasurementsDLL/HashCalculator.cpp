@@ -1,4 +1,4 @@
-//#include <iostream>
+#include <iostream>
 #include <string>
 #include <sstream>
 
@@ -14,11 +14,11 @@ std::string CharToHexString(char c) {
 #define HashCalculator _declspec(dllexport)
 
 extern "C" {
-	HashCalculator void CalculateAtmHash(const char& startChar, const int length, char& hashChar, int hashLength) {
+	HashCalculator void CalculateAtmHash(const char* startChar, const int length, char* hashChar, int& hashLength) {
         // Build the hex string by converting chars to hex
         std::string hexString;
         for (int i = 0; i < length; ++i) {
-            hexString += CharToHexString(startChar + i);
+            hexString += CharToHexString(startChar[i]);
         }
 
         // Sum the ASCII values of each char in the hex string
@@ -28,9 +28,15 @@ extern "C" {
         }
 
         // Convert the sum to a char
-        hashChar = static_cast<char>(sum);
+        std::string sumStr = std::to_string(sum);
+
+        // Copy characters from the string to the char array
+        for (int i = 0; i < sumStr.length(); ++i) {
+            hashChar[i] = sumStr[i];
+        }
 
         // Set the hash length
-        hashLength = static_cast<int>(hexString.length());
+        hashLength = sumStr.length();
+        
 	}
 }

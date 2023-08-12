@@ -113,6 +113,7 @@ namespace MeasurementsWebAPI.ServiceAPI.Controllers
                 }
                 else
                 {
+                    atmDto.Hash = hash;
                     return Ok(atmDto);
                 }                
             }
