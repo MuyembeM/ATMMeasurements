@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeasurementsWebAPI.BusinessLogic;
 
 namespace MeasurementsTests.Controllers
 {
@@ -124,5 +125,6 @@ namespace MeasurementsTests.Controllers
             var atmDto = Assert.IsType<AtmDto>(okResult.Value);
             Assert.Equal(atmId, atmDto.Id); 
         }
+
     }
 }
