@@ -14,22 +14,40 @@ namespace MeasurementsUI.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        public string ErrorMessage { get; set; }
+
         public IEnumerable<Atm> Atms { get; set; }
 
 
         protected override async Task OnInitializedAsync()
         {
-            Atms = await AtmService.GetAll();
+            try
+            {
+                Atms = await AtmService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            
         }
 
         protected async Task DeleteAtm_Click(int id)
         {
-            var model = await AtmService.DeleteAtm(id);
-
-            if (model != null)
+            try
             {
-                RemoveAtm(id);
-            }           
+                var model = await AtmService.DeleteAtm(id);
+
+                if (model != null)
+                {
+                    RemoveAtm(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+                    
 
         }
 

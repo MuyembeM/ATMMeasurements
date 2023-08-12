@@ -17,7 +17,7 @@ namespace MeasurementsUI.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        public Atm Atm { get; set; }
+        public AtmViewModel Atm { get; set; } = new AtmViewModel();
 
         public string ErrorMessage { get; set; }
 
@@ -26,9 +26,12 @@ namespace MeasurementsUI.Pages
             try
             {
                 if (Id > 0)
-                    Atm = await AtmService.GetAtm(Id);
+                    Atm.Atm = await AtmService.GetAtm(Id);
                 else
-                    Atm = new Atm();
+                {
+                    Atm.Atm = new Atm();
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -38,35 +41,65 @@ namespace MeasurementsUI.Pages
 
         protected async Task UpdateATM()
         {
-            var model = await AtmService.UpdateAtm(Atm.ConvertToDto());
-
-            if (model != null)
+            try
             {
-                NavigationManager.NavigateTo("/");
-            }
+                if (Atm.Atm != null)
+                {
+                    var model = await AtmService.UpdateAtm(Atm.Atm.ConvertToDto());
 
+                    if (model != null)
+                    {
+                        NavigationManager.NavigateTo("/");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
 
         protected async Task SaveATM()
         {
-            
-            var model = await AtmService.InsertAtm(Atm.ConvertToDto());
-
-            if (model != null)
+            try
             {
-                NavigationManager.NavigateTo("/");
+                if (Atm.Atm != null)
+                {
+                    var model = await AtmService.InsertAtm(Atm.Atm.ConvertToDto());
+
+                    if (model != null)
+                    {
+                        NavigationManager.NavigateTo("/");
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+                       
 
         }
 
         protected async Task GetAtmHash_Click()
         {
-            var model = await AtmService.GetAtmHash(Atm.ConvertToDto());
-
-            if (model != null)
+            try
             {
-                NavigationManager.NavigateTo("/");
+                if (Atm.Atm != null)
+                {
+                    var model = await AtmService.GetAtmHash(Atm.Atm.ConvertToDto());
+
+                    if (model != null)
+                    {
+                        Atm.AtmHash = model.Hash;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            
 
         }
     }

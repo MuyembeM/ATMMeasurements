@@ -12,6 +12,6 @@ namespace MeasurementsUI.Services.Interfaces
         Task<Atm> DeleteAtm(int id);
         Task<Atm> UpdateAtm(AtmDto atm);
         Task<Atm> InsertAtm(AtmDto atm);
-        Task<Atm> GetAtmHash(AtmDto atm);
+        Task<AtmDto> GetAtmHash(AtmDto atm);
     }
 }

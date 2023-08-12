@@ -106,7 +106,7 @@ namespace MeasurementsUI.Services
             }
         }
 
-        public async Task<Atm> GetAtmHash(AtmDto atmDto)
+        public async Task<AtmDto> GetAtmHash(AtmDto atmDto)
         {
             try
             {
@@ -118,8 +118,8 @@ namespace MeasurementsUI.Services
                 if (response.IsSuccessStatusCode)
                 {
                     atmDto = await response.Content.ReadFromJsonAsync<AtmDto>();
-                    var atm = atmDto.ConvertFromDto();
-                    return atm;
+                    
+                    return atmDto;
                 }
                 return null;
             }

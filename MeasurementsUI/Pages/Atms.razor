@@ -1,13 +1,16 @@
 ﻿@page "/"
 @inherits AtmsBase
 
-@if (Atms == null)
+@if (Atms == null && ErrorMessage == null)
 {
     <h4>Loading ATMs...</h4>
+}else if (ErrorMessage != null)
+{
+    <h4 class="text-danger">@ErrorMessage</h4>
 }
 else
 {
-    <h3 class="mb-5">ATMS</h3>
+    <h3 class="mb-3">ATMS</h3>
 
     <div class="mt-2">
         <a href="/newatm" class="btn btn-sm btn-success">
@@ -19,7 +22,7 @@ else
 
     if (atmCount > 0)
     {
-        <div class="row mt-3">
+        <div class="row mt-5 border-bottom">
             <div class="col-md-1 mb-2">
                 Id
             </div>
@@ -42,7 +45,7 @@ else
 
         @foreach (var atm in Atms)
         {
-            <div class="row mt-3">
+            <div class="row mt-3 border-bottom">
                 <div class="col-md-1 mb-2">
                     @atm.Id
                 </div>

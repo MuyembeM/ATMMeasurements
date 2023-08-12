@@ -1,7 +1,7 @@
 ﻿@page "/EditAtm/{Id:int}"
 @inherits AtmDetailsBase
 
-@if (Atm == null && ErrorMessage == null)
+@if (Atm.Atm == null && ErrorMessage == null)
 {
     <h4>Loading ATM details</h4>
 }
@@ -19,7 +19,7 @@ else
                 <p>ID</p>
             </div>
             <div class="col-md-10">
-                <input type="number" disabled @bind="Atm.Id" />
+                <input type="number" disabled @bind="Atm.Atm.Id" />
             </div>
         </div>
         <div class="row">
@@ -27,8 +27,8 @@ else
                 <p>Description</p>
             </div>
             <div class="col-md-10">
-                <input type="text" @bind="Atm.Description" />
-                <ValidationMessage For="() => Atm.Description" />
+                <input type="text" @bind="Atm.Atm.Description" />
+                <ValidationMessage For="() => Atm.Atm.Description" />
             </div>
         </div>
         <div class="row">
@@ -36,8 +36,8 @@ else
                 <p>Height</p>
             </div>
             <div class="col-md-10">
-                <input type="number" @bind="Atm.Height" />
-                <ValidationMessage For="() => Atm.Height" />
+                <input type="number" @bind="Atm.Atm.Height" />
+                <ValidationMessage For="() => Atm.Atm.Height" />
             </div>
         </div>
         <div class="row">
@@ -45,8 +45,8 @@ else
                 <p>Length</p>
             </div>
             <div class="col-md-10">
-                <input type="number" @bind="Atm.Length" />
-                <ValidationMessage For="() => Atm.Length" />
+                <input type="number" @bind="Atm.Atm.Length" />
+                <ValidationMessage For="() => Atm.Atm.Length" />
             </div>
         </div>
         <div class="row">
@@ -54,8 +54,8 @@ else
                 <p>Width</p>
             </div>
             <div class="col-md-10">
-                <input type="number" @bind="Atm.Width" />
-                <ValidationMessage For="() => Atm.Width" />
+                <input type="number" @bind="Atm.Atm.Width" />
+                <ValidationMessage For="() => Atm.Atm.Width" />
             </div>
         </div>
         <div class="mt-2">
