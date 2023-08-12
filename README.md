@@ -6,11 +6,18 @@ application will need to be able to create new ATMs, read existing ATMs, update 
 ATMs, and delete an ATM.
 Each ATM should have the following data fields and limits. All fields should be visible and editable from
 the UI
+
+
 • ATM ID – A unique identifier
+
 • Description – Free form text
+
 • ATM Length – No limit
+
 • ATM Width – Max of 800
+
 • ATM Height – Min of 100
+
 The ATM hash value should be calculated using a C++ DLL and then displayed in the UI. Details of the
 hash calculation method are outlined in detail in the below architecture section.
 Expected Architecture
