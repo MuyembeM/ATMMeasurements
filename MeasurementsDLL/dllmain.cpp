@@ -1,11 +1,11 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
-/*#include <iostream>
+#include <iostream>
 #include <string>
 #include <sstream>*/
 
 // Helper function to convert a char to hex string
-/*std::string CharToHexString(char c) {
+std::string CharToHexString(char c) {
     std::stringstream stream;
     stream << std::hex << (int)c;
     return stream.str();
@@ -30,7 +30,7 @@ void CalculateATMHash(const char& startChar, const int length, char& hashChar, i
 
     // Set the hash length
     hashLength = static_cast<int>(hexString.length());
-}*/
+}
 
 
 extern "C" BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -47,18 +47,14 @@ extern "C" BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVO
 }
 
 // Initialization function to be called from managed code
-/*extern "C" __declspec(dllexport) bool InitializeDLL(char& startChar, int length, char& hashChar, int hashLength)
+extern "C" __declspec(dllexport) bool InitializeDLL(char& startChar, int length, char& hashChar, int hashLength)
 {
     CalculateATMHash(startChar, length, hashChar, hashLength);
     return true;
-}*/
-
-extern "C" __declspec(dllexport) bool InitializeDLL()
-{
-    // Display a message box
-    MessageBox(NULL, L"Hello, World!", L"Message Box Example", MB_ICONINFORMATION | MB_OK);
-    return true;
 }
+
+
+
 
 
 

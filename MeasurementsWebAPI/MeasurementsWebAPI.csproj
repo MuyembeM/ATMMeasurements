@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MeasurementsDLL\MeasurementsDLL.vcxproj" />
     <ProjectReference Include="..\MeasurementsModels\MeasurementsModels.csproj" />
   </ItemGroup>
 
