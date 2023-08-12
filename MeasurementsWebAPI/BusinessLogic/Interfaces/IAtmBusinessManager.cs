@@ -11,6 +11,5 @@ namespace MeasurementsWebAPI.BusinessLogic.Interfaces
         Task<Atm> Insert(Atm atm);
         Task<Atm> Update(Atm atm);
         Task<Atm> Delete(int id);
-        void GetHash(int id, Atm atm);
     }
 }

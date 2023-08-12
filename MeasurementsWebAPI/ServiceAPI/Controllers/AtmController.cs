@@ -1,4 +1,5 @@
 ﻿using MeasurementsModels.Dtos;
+using MeasurementsWebAPI.BusinessLogic;
 using MeasurementsWebAPI.BusinessLogic.Interfaces;
 using MeasurementsWebAPI.BusinessLogic.Models;
 using MeasurementsWebAPI.Extensions;
@@ -99,9 +100,21 @@ namespace MeasurementsWebAPI.ServiceAPI.Controllers
         {
             try
             {
-                _atmBusinessManager.GetHash(id,atmDto.ConvertFromDto());
+                string hash = null; 
 
-                return Ok(atmDto);
+                using (HashCalculator hashCalculator = new HashCalculator())
+                {
+                    hash = hashCalculator.GetHash(atmDto.Description);
+                }
+
+                if (hash == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(atmDto);
+                }                
             }
             catch (Exception)
             {

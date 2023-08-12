@@ -1,5 +1,7 @@
 ﻿using MeasurementsWebAPI.BusinessLogic.Interfaces;
 using System.Runtime.InteropServices;
+using System.Text.Unicode;
+using System.Text;
 
 namespace MeasurementsWebAPI.BusinessLogic
 {
@@ -13,25 +15,25 @@ namespace MeasurementsWebAPI.BusinessLogic
         }
 
         [DllImport("MeasurementsDLL", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool InitializeDLL(char startChar, int length, out char hashChar, out int hashLength);
-
-        
-        public void CalculateATMHash(string description)
+        public static extern bool CalculateAtmHash(in char startChar, int length, out char hashChar, out int hashLength);
+            
+        public string GetHash(string description)
         {
-            var startChar = description[0];
-            var length = 3;
-            char hashChar;
-            int hashLength;
+            // Convert string to byte array using UTF-8 encoding
+            byte[] byteArray = Encoding.UTF8.GetBytes(description);
+            // Declare 100-byte array
+            byte[] hash = new byte[100];
 
-            bool result = InitializeDLL(startChar, length, out hashChar, out hashLength);
+            var startChar = (char)byteArray[0];
+            var length = byteArray.Length;
+            var hashChar = (char)hash[0];
+            var hashLength = 0;
 
-            if (result)
-            {
-                Console.WriteLine(hashChar); 
-                Console.WriteLine(hashLength);
-            }
+            //CalculateAtmHash(in startChar, length, out hashChar, out hashLength);
+
+            return hash.ToString();
         }
-
+        
         public void Dispose()
         {
             Dispose(true);

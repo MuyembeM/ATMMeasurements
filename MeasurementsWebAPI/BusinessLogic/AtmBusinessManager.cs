@@ -53,22 +53,6 @@ namespace MeasurementsWebAPI.BusinessManager
             }
         }
 
-        public void GetHash(int id, Atm atm)
-        {
-            try
-            {
-                using (HashCalculator hashCalculator = new HashCalculator())
-                {
-                    hashCalculator.CalculateATMHash(atm.Description);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
         public async Task<Atm> Insert(Atm atm)
         {
             try
