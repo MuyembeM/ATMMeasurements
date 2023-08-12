@@ -15,7 +15,7 @@ namespace MeasurementsWebAPI.BusinessLogic
         }
 
         [DllImport("MeasurementsDLL", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool CalculateAtmHash(in byte startChar, int length, out byte hashChar, out int hashLength);
+        public static extern bool CalculateAtmHash(in byte startChar, int length, ref byte hashChar, ref int hashLength);
             
         public string GetHash(string description)
         {
@@ -28,7 +28,7 @@ namespace MeasurementsWebAPI.BusinessLogic
 
                 var hashLength = 0;
 
-                if (CalculateAtmHash(in byteArray[0], byteArray.Length, out hash[0], out hashLength))
+                if (CalculateAtmHash(in byteArray[0], byteArray.Length, ref hash[0], ref hashLength))
                 {
                     // Copy populated elements in hash to new byte array
                     var filledArray = new byte[hashLength];
