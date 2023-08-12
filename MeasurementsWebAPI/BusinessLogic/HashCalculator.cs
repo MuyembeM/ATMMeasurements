@@ -19,22 +19,34 @@ namespace MeasurementsWebAPI.BusinessLogic
             
         public string GetHash(string description)
         {
-            // Convert string to byte array using UTF-8 encoding
-            byte[] byteArray = Encoding.UTF8.GetBytes(description);
-            // Declare 100-byte array
-            byte[] hash = new byte[100];
+            try
+            {
+                // Convert string to byte array using UTF-8 encoding
+                byte[] byteArray = Encoding.UTF8.GetBytes(description);
+                // Declare 100-byte array
+                byte[] hash = new byte[100];
 
-            var hashLength = 0;
+                var hashLength = 0;
 
-            CalculateAtmHash(in byteArray[0], byteArray.Length, out hash[0], out hashLength);
-            
-            // Copy populated elements in hash to new byte array
-            var filledArray = new byte[hashLength];
-            Array.Copy(hash, 0, filledArray,0, hashLength);
+                if (CalculateAtmHash(in byteArray[0], byteArray.Length, out hash[0], out hashLength))
+                {
+                    // Copy populated elements in hash to new byte array
+                    var filledArray = new byte[hashLength];
+                    Array.Copy(hash, 0, filledArray, 0, hashLength);
 
-            // Convert byte array back to string using UTF-8 encoding
-            var utfString = Encoding.UTF8.GetString(filledArray);
-            return utfString;
+                    // Convert byte array back to string using UTF-8 encoding
+                    var utfString = Encoding.UTF8.GetString(filledArray);
+                    return utfString;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return null;
             
         }
         
