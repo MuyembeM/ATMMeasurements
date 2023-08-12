@@ -6,18 +6,18 @@ using System.Linq.Expressions;
 
 namespace MeasurementsWebAPI.DataAccess
 {
-    public class AtmRepository : IAtmRepository
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly MeasurementsDBContext _dbContext;
         
-        public AtmRepository(MeasurementsDBContext dBContext)
+        public Repository(MeasurementsDBContext dBContext)
         {
             _dbContext = dBContext;
         }
         
-        public async Task<Atm> Delete(int id)
+        public async Task<T> Delete(object id)
         {
-            var entityToDelete = await _dbContext.Atms.FindAsync(id);
+            var entityToDelete = await _dbContext.Set<T>().FindAsync(id);
             if (entityToDelete != null)
             {
                 Delete(entityToDelete);
@@ -25,36 +25,37 @@ namespace MeasurementsWebAPI.DataAccess
             return entityToDelete;
         }
 
-        public void Delete(Atm entityToDelete)
+        public void Delete(T entityToDelete)
         {
             if (_dbContext.Entry(entityToDelete).State == EntityState.Detached)
             {
-                _dbContext.Atms.Attach(entityToDelete);
+                _dbContext.Set<T>().Attach(entityToDelete);
             }
-            _dbContext.Atms.Remove(entityToDelete);
+            _dbContext.Set<T>().Remove(entityToDelete);
             _dbContext.SaveChanges();
         }
 
-        public async Task<Atm?> Get(int id)
+        public async Task<T> Get(object id)
         {
-            return await _dbContext.Atms.FindAsync(id);
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<Atm>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return await _dbContext.Atms.ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<Atm> Insert(Atm atm)
+        public async Task<T> Insert(T entity, Expression<Func<T, object>> predicate)
         {
-            _dbContext.Atms.Add(atm);
+            
+            _dbContext.Set<T>().Add(entity);
             _dbContext.SaveChanges();
-            return await _dbContext.Atms.OrderBy(x=>x.Id).LastOrDefaultAsync();
+            return await _dbContext.Set<T>().OrderBy(predicate).LastOrDefaultAsync();
         }
 
-        public async Task<Atm> Update(Atm entityToUpdate)
+        public async Task<T> Update(T entityToUpdate)
         {
-            _dbContext.Atms.Attach(entityToUpdate);
+            _dbContext.Set<T>().Attach(entityToUpdate);
             _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return entityToUpdate;

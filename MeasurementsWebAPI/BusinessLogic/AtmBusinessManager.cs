@@ -9,9 +9,9 @@ namespace MeasurementsWebAPI.BusinessManager
 {
     public class AtmBusinessManager : IAtmBusinessManager
     {
-        private readonly IAtmRepository _repository;
+        private readonly IRepository<Atm> _repository;
         
-        public AtmBusinessManager(IAtmRepository repository)
+        public AtmBusinessManager(IRepository<Atm> repository)
         {
             _repository = repository;
         }
@@ -57,7 +57,7 @@ namespace MeasurementsWebAPI.BusinessManager
         {
             try
             {
-                return await _repository.Insert(atm);
+                return await _repository.Insert(atm,x=>x.Id);
             }
             catch (Exception)
             {
